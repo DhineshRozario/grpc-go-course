@@ -4,8 +4,9 @@ import (
 	"context"
 	"log"
 	"net"
+	"strconv"
 
-	"github.com/grpc-go-course/greet/greetpb"
+	"github.com/grpc-go-course/server_streaming_grpc/greet/greetpb"
 	"google.golang.org/grpc"
 )
 
@@ -24,6 +25,27 @@ func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.G
 	}
 
 	return &res, nil
+}
+
+func (*server) GreetManyTimes(req *greetpb.GreetManyTimesRequest, stream greetpb.GreetService_GreetManyTimesServer) error {
+
+	log.Printf("GreetManyTimes function was invoked with request:\n==> %v\n", req)
+
+	firstName := req.GetGreeting().GetFirstName()
+
+	for i := 0; i < 10; i++ {
+
+		result := "Hello " + firstName + ", calling " + strconv.Itoa(i)
+
+		res := &greetpb.GreetManyTimesResponse{
+			Result: result,
+		}
+
+		stream.Send(res)
+		// time.Sleep(1000 * time.Millisecond)
+	}
+
+	return nil
 }
 
 func main() {

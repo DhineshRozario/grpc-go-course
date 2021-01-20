@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/grpc-go-course/unary_grpc/calculator/protocolbuffer"
+	"github.com/grpc-go-course/server_streaming_grpc/calculator/protocolbuffer"
 	"google.golang.org/grpc"
 )
 

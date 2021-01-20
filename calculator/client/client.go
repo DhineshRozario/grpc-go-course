@@ -25,20 +25,22 @@ func main() {
 
 func doCalculate(c protocolbuffer.CalculatorServiceClient) {
 
-	log.Println("Starting the client for Adding two numbers in Unary RPC")
+	log.Println("Starting the client for sum of two numbers in Unary RPC")
 
 	req := &protocolbuffer.CalculatorRequest{
 		Calculator: &protocolbuffer.Calculator{
-			FirstNumber:  3,
-			SecondNumber: 10,
+			FirstNumber:  5,
+			SecondNumber: 6,
 		},
 	}
+
+	log.Printf("Calculating the sum of %v and %v:\n", req.GetCalculator().GetFirstNumber(), req.GetCalculator().GetSecondNumber())
 
 	res, err := c.SumOfNumbers(context.Background(), req)
 
 	if err != nil {
-		log.Fatalf("Error while calling Add Service: %v", err)
+		log.Fatalf("Error while calling 'Sum Of Numbers' Service: %v", err)
 	}
 
-	log.Printf("Response from Calculator Add Sercer: %v", res.Result)
+	log.Printf("==> The response from Calculator Server -> 'Sum Of Numbers' is: %v\n", res.Result)
 }

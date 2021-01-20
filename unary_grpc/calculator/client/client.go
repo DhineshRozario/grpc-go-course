@@ -4,17 +4,17 @@ import (
 	"context"
 	"log"
 
-	"github.com/grpc-go-course/calculator/protocolbuffer"
+	"github.com/grpc-go-course/unary_grpc/calculator/protocolbuffer"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	log.Println("Hello I'm a client")
+	log.Println("Calculator client")
 
 	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
 
 	if err != nil {
-		log.Fatalf("could not connect: %v", err)
+		log.Fatalf("Not able to connect with server: %v", err)
 	}
 
 	defer conn.Close()

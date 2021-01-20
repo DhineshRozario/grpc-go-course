@@ -4,17 +4,17 @@ import (
 	"context"
 	"log"
 
-	"github.com/grpc-go-course/greet/greetpb"
+	"github.com/grpc-go-course/unary_grpc/greet/greetpb"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	log.Println("Hello I'm a client")
+	log.Println("Greeting Client")
 
 	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
 
 	if err != nil {
-		log.Fatalf("could not connect: %v", err)
+		log.Fatalf("Not able to connect with server: %v", err)
 	}
 
 	defer conn.Close()

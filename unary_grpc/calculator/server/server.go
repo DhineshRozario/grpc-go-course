@@ -12,7 +12,7 @@ import (
 type server struct{}
 
 func (*server) SumOfNumbers(ctx context.Context, req *protocolbuffer.CalculatorRequest) (*protocolbuffer.CalculatorResponse, error) {
-	log.Printf("Server function SumOfNumbers() was invoked with request: %v\n", req)
+	log.Printf("Server function SumOfNumbers() was invoked\nwith request: ==> %v\n", req)
 
 	result := req.GetCalculator().GetFirstNumber() + req.GetCalculator().GetSecondNumber()
 

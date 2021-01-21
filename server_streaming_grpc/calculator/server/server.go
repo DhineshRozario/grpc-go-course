@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/grpc-go-course/calculator/protocolbuffer"
+	"github.com/grpc-go-course/server_streaming_grpc/calculator/protocolbuffer"
 	"google.golang.org/grpc"
 )
 

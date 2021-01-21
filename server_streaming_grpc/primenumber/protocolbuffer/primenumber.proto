@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package protocolbuffer;
+
+option go_package="primenumber/protocolbuffer";
+
+message PrimeNumberDeComposition {
+    int64 number = 1;
+}
+
+message PrimeNumberDeCompositionRequest {
+    PrimeNumberDeComposition primeNumber = 1;
+}
+
+message PrimeNumberDeCompositionManyTimesResponse {
+    string result = 1;
+}
+
+service PrimeNumberDeCompositionService {
+    
+    //Server Streaming
+    rpc PrimeNumberDeComposition(PrimeNumberDeCompositionRequest) returns (stream PrimeNumberDeCompositionManyTimesResponse) {};
+}

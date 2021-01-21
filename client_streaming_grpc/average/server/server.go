@@ -23,7 +23,7 @@ func (*server) ComputeAverage(stream protocolbuffer.ComputeAverageService_Comput
 		req, err := stream.Recv()
 
 		if err == io.EOF {
-			average = float32(sum / float32(count));
+			average = float32(sum / float32(count))
 			log.Printf("For the given numbers (%v), the sum %v and the Average is: %v", numbers, sum, average)
 			// we have finished reading the client stream
 

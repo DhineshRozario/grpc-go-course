@@ -4,21 +4,20 @@ package protocolbuffer;
 
 option go_package="primenumber/protocolbuffer";
 
-message PrimeNumber {
-    int32 number = 1;
+message PrimeNumberDeComposition {
+    int64 number = 1;
 }
 
-
-message PrimeNumberRequest {
-    PrimeNumber primeNumber = 1;
+message PrimeNumberDeCompositionRequest {
+    PrimeNumberDeComposition primeNumber = 1;
 }
 
-message PrimeNumberManyTimesResponse {
-    int32 result = 1;
+message PrimeNumberDeCompositionManyTimesResponse {
+    string result = 1;
 }
 
-service PrimeNumberService {
+service PrimeNumberDeCompositionService {
     
     //Server Streaming
-    rpc PrimeNumberDeComposition(PrimeNumberRequest) returns (stream PrimeNumberManyTimesResponse) {};
+    rpc PrimeNumberDeComposition(PrimeNumberDeCompositionRequest) returns (stream PrimeNumberDeCompositionManyTimesResponse) {};
 }

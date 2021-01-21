@@ -20,36 +20,38 @@ func main() {
 
 	defer conn.Close()
 
-	c := protocolbuffer.NewPrimeNumberServiceClient(conn)
+	c := protocolbuffer.NewPrimeNumberDeCompositionServiceClient(conn)
 	// doUnary(c)
 	getPrimeDecomposition(c)
 }
 
-func getPrimeDecomposition(c protocolbuffer.PrimeNumberServiceClient) {
+func getPrimeDecomposition(c protocolbuffer.PrimeNumberDeCompositionServiceClient) {
 
 	log.Println("Starting the getPrimeDecomposition method using the Server Streaming RPC...")
 
-	req := &protocolbuffer.PrimeNumberRequest{
-		PrimeNumber: &protocolbuffer.PrimeNumber{
-			Number: 220,
-		},
-	}
-	resStream, err := c.PrimeNumberDeComposition(context.Background(), req)
-
-	if err != nil {
-		log.Fatalf("Error while calling PrimeNumberDeComposition RPC: %v", err)
-	}
-
-	log.Println("Response from PrimeNumberDeComposition Server")
-	for {
-		msg, err := resStream.Recv()
-
-		if err == io.EOF {
-			log.Println("Reached end of response...")
-			break
-		} else if err != nil {
-			log.Fatalf("Error while receiving the response from Server: %v", err)
+	for i := 1000; i > 1; i -= 10 {
+		req := &protocolbuffer.PrimeNumberDeCompositionRequest{
+			PrimeNumber: &protocolbuffer.PrimeNumberDeComposition{
+				Number: int64(i),
+			},
 		}
-		log.Printf("%v", msg.GetResult())
+		resStream, err := c.PrimeNumberDeComposition(context.Background(), req)
+
+		if err != nil {
+			log.Fatalf("Error while calling PrimeNumberDeComposition RPC: %v", err)
+		}
+
+		log.Printf("Response from PrimeNumberDeComposition Server for the number: %v\n", req.GetPrimeNumber().GetNumber())
+		for {
+			msg, err := resStream.Recv()
+
+			if err == io.EOF {
+				log.Println("Reached end of response...")
+				break
+			} else if err != nil {
+				log.Fatalf("Error while receiving the response from Server: %v", err)
+			}
+			log.Printf("%v ", msg.GetResult())
+		}
 	}
 }

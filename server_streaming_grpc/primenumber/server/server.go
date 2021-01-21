@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"strconv"
 
 	"github.com/grpc-go-course/server_streaming_grpc/primenumber/protocolbuffer"
 	"google.golang.org/grpc"
@@ -10,45 +11,31 @@ import (
 
 type server struct{}
 
-func (*server) PrimeNumberDeComposition(req *protocolbuffer.PrimeNumberRequest, stream protocolbuffer.PrimeNumberService_PrimeNumberDeCompositionServer) error {
+func (*server) PrimeNumberDeComposition(req *protocolbuffer.PrimeNumberDeCompositionRequest, stream protocolbuffer.PrimeNumberDeCompositionService_PrimeNumberDeCompositionServer) error {
 
 	log.Printf("PrimeNumberDeComposition function was invoked with request:\n==> %v\n", req)
 
-	givenNumber := int(req.GetPrimeNumber().GetNumber())
-
+	givenNumber := req.GetPrimeNumber().GetNumber()
 	log.Printf("PrimeNumberDeComposition: given number is: %v", givenNumber)
 
-	dividor := 2
+	dividor := int64(2)
+
 	for givenNumber > 1 {
-		modValue, err := findDividor(stream, dividor, givenNumber)
 
-		if err != nil {
-			log.Fatalf("failed to find the dividor: %v\n", err)
-			break
-		}
-
-		if modValue != 0 {
+		if givenNumber%dividor == 0 {
+			result := "dividor: " + strconv.FormatInt(dividor, 10) + " and number is: " + strconv.FormatInt(givenNumber, 10)
+			log.Printf("result: %v", result)
+			res := &protocolbuffer.PrimeNumberDeCompositionManyTimesResponse{
+				Result: result,
+			}
+			stream.Send(res)
+			givenNumber = givenNumber / dividor
+		} else {
 			dividor = dividor + 1
 		}
-
-		givenNumber = givenNumber / dividor
 	}
 
 	return nil
-}
-
-func findDividor(stream protocolbuffer.PrimeNumberService_PrimeNumberDeCompositionServer, dividor int, givenNumber int) (int, error) {
-
-	modValue := givenNumber % dividor
-
-	if modValue == 0 {
-		res := &protocolbuffer.PrimeNumberManyTimesResponse{
-			Result: int32(dividor),
-		}
-		stream.Send(res)
-	}
-
-	return modValue, nil
 }
 
 func main() {
@@ -62,7 +49,7 @@ func main() {
 
 	s := grpc.NewServer()
 
-	protocolbuffer.RegisterPrimeNumberServiceServer(s, &server{})
+	protocolbuffer.RegisterPrimeNumberDeCompositionServiceServer(s, &server{})
 
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v\n", err)

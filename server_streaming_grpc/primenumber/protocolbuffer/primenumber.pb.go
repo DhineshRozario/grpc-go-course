@@ -24,16 +24,16 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type PrimeNumber struct {
+type PrimeNumberDeComposition struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Number int32 `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	Number int64 `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
 }
 
-func (x *PrimeNumber) Reset() {
-	*x = PrimeNumber{}
+func (x *PrimeNumberDeComposition) Reset() {
+	*x = PrimeNumberDeComposition{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_primenumber_protocolbuffer_primenumber_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -41,13 +41,13 @@ func (x *PrimeNumber) Reset() {
 	}
 }
 
-func (x *PrimeNumber) String() string {
+func (x *PrimeNumberDeComposition) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PrimeNumber) ProtoMessage() {}
+func (*PrimeNumberDeComposition) ProtoMessage() {}
 
-func (x *PrimeNumber) ProtoReflect() protoreflect.Message {
+func (x *PrimeNumberDeComposition) ProtoReflect() protoreflect.Message {
 	mi := &file_primenumber_protocolbuffer_primenumber_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -59,28 +59,28 @@ func (x *PrimeNumber) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PrimeNumber.ProtoReflect.Descriptor instead.
-func (*PrimeNumber) Descriptor() ([]byte, []int) {
+// Deprecated: Use PrimeNumberDeComposition.ProtoReflect.Descriptor instead.
+func (*PrimeNumberDeComposition) Descriptor() ([]byte, []int) {
 	return file_primenumber_protocolbuffer_primenumber_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *PrimeNumber) GetNumber() int32 {
+func (x *PrimeNumberDeComposition) GetNumber() int64 {
 	if x != nil {
 		return x.Number
 	}
 	return 0
 }
 
-type PrimeNumberRequest struct {
+type PrimeNumberDeCompositionRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PrimeNumber *PrimeNumber `protobuf:"bytes,1,opt,name=primeNumber,proto3" json:"primeNumber,omitempty"`
+	PrimeNumber *PrimeNumberDeComposition `protobuf:"bytes,1,opt,name=primeNumber,proto3" json:"primeNumber,omitempty"`
 }
 
-func (x *PrimeNumberRequest) Reset() {
-	*x = PrimeNumberRequest{}
+func (x *PrimeNumberDeCompositionRequest) Reset() {
+	*x = PrimeNumberDeCompositionRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_primenumber_protocolbuffer_primenumber_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -88,13 +88,13 @@ func (x *PrimeNumberRequest) Reset() {
 	}
 }
 
-func (x *PrimeNumberRequest) String() string {
+func (x *PrimeNumberDeCompositionRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PrimeNumberRequest) ProtoMessage() {}
+func (*PrimeNumberDeCompositionRequest) ProtoMessage() {}
 
-func (x *PrimeNumberRequest) ProtoReflect() protoreflect.Message {
+func (x *PrimeNumberDeCompositionRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_primenumber_protocolbuffer_primenumber_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -106,28 +106,28 @@ func (x *PrimeNumberRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PrimeNumberRequest.ProtoReflect.Descriptor instead.
-func (*PrimeNumberRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use PrimeNumberDeCompositionRequest.ProtoReflect.Descriptor instead.
+func (*PrimeNumberDeCompositionRequest) Descriptor() ([]byte, []int) {
 	return file_primenumber_protocolbuffer_primenumber_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *PrimeNumberRequest) GetPrimeNumber() *PrimeNumber {
+func (x *PrimeNumberDeCompositionRequest) GetPrimeNumber() *PrimeNumberDeComposition {
 	if x != nil {
 		return x.PrimeNumber
 	}
 	return nil
 }
 
-type PrimeNumberManyTimesResponse struct {
+type PrimeNumberDeCompositionManyTimesResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Result int32 `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	Result string `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
 }
 
-func (x *PrimeNumberManyTimesResponse) Reset() {
-	*x = PrimeNumberManyTimesResponse{}
+func (x *PrimeNumberDeCompositionManyTimesResponse) Reset() {
+	*x = PrimeNumberDeCompositionManyTimesResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_primenumber_protocolbuffer_primenumber_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -135,13 +135,13 @@ func (x *PrimeNumberManyTimesResponse) Reset() {
 	}
 }
 
-func (x *PrimeNumberManyTimesResponse) String() string {
+func (x *PrimeNumberDeCompositionManyTimesResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PrimeNumberManyTimesResponse) ProtoMessage() {}
+func (*PrimeNumberDeCompositionManyTimesResponse) ProtoMessage() {}
 
-func (x *PrimeNumberManyTimesResponse) ProtoReflect() protoreflect.Message {
+func (x *PrimeNumberDeCompositionManyTimesResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_primenumber_protocolbuffer_primenumber_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -153,16 +153,16 @@ func (x *PrimeNumberManyTimesResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PrimeNumberManyTimesResponse.ProtoReflect.Descriptor instead.
-func (*PrimeNumberManyTimesResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use PrimeNumberDeCompositionManyTimesResponse.ProtoReflect.Descriptor instead.
+func (*PrimeNumberDeCompositionManyTimesResponse) Descriptor() ([]byte, []int) {
 	return file_primenumber_protocolbuffer_primenumber_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *PrimeNumberManyTimesResponse) GetResult() int32 {
+func (x *PrimeNumberDeCompositionManyTimesResponse) GetResult() string {
 	if x != nil {
 		return x.Result
 	}
-	return 0
+	return ""
 }
 
 var File_primenumber_protocolbuffer_primenumber_proto protoreflect.FileDescriptor
@@ -171,30 +171,35 @@ var file_primenumber_protocolbuffer_primenumber_proto_rawDesc = []byte{
 	0x0a, 0x2c, 0x70, 0x72, 0x69, 0x6d, 0x65, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x2f, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x2f, 0x70, 0x72, 0x69,
 	0x6d, 0x65, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x22, 0x25,
-	0x0a, 0x0b, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x12, 0x16, 0x0a,
-	0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x6e,
-	0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x53, 0x0a, 0x12, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75,
-	0x6d, 0x62, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3d, 0x0a, 0x0b, 0x70,
-	0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65,
-	0x72, 0x2e, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x52, 0x0b, 0x70,
-	0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x36, 0x0a, 0x1c, 0x50, 0x72,
-	0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x4d, 0x61, 0x6e, 0x79, 0x54, 0x69, 0x6d,
-	0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65,
-	0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75,
-	0x6c, 0x74, 0x32, 0x86, 0x01, 0x0a, 0x12, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62,
-	0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x70, 0x0a, 0x18, 0x50, 0x72, 0x69,
-	0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x44, 0x65, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x73,
-	0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x22, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c,
-	0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x2e, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62,
-	0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2c, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x63, 0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x2e, 0x50, 0x72, 0x69, 0x6d, 0x65,
-	0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x4d, 0x61, 0x6e, 0x79, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x42, 0x1c, 0x5a, 0x1a, 0x70,
-	0x72, 0x69, 0x6d, 0x65, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x63, 0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x22, 0x32,
+	0x0a, 0x18, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x44, 0x65, 0x43,
+	0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x75,
+	0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62,
+	0x65, 0x72, 0x22, 0x6d, 0x0a, 0x1f, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65,
+	0x72, 0x44, 0x65, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x4a, 0x0a, 0x0b, 0x70, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75,
+	0x6d, 0x62, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x2e, 0x50, 0x72, 0x69, 0x6d,
+	0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x44, 0x65, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x69,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0b, 0x70, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65,
+	0x72, 0x22, 0x43, 0x0a, 0x29, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72,
+	0x44, 0x65, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x4d, 0x61, 0x6e,
+	0x79, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16,
+	0x0a, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x32, 0xae, 0x01, 0x0a, 0x1f, 0x50, 0x72, 0x69, 0x6d, 0x65,
+	0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x44, 0x65, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x69, 0x74,
+	0x69, 0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x8a, 0x01, 0x0a, 0x18, 0x50,
+	0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x44, 0x65, 0x43, 0x6f, 0x6d, 0x70,
+	0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x2f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63,
+	0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x2e, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e, 0x75,
+	0x6d, 0x62, 0x65, 0x72, 0x44, 0x65, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x39, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x63, 0x6f, 0x6c, 0x62, 0x75, 0x66, 0x66, 0x65, 0x72, 0x2e, 0x50, 0x72, 0x69, 0x6d, 0x65, 0x4e,
+	0x75, 0x6d, 0x62, 0x65, 0x72, 0x44, 0x65, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x73, 0x69, 0x74, 0x69,
+	0x6f, 0x6e, 0x4d, 0x61, 0x6e, 0x79, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x42, 0x1c, 0x5a, 0x1a, 0x70, 0x72, 0x69, 0x6d, 0x65,
+	0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x6f, 0x6c, 0x62,
+	0x75, 0x66, 0x66, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -211,14 +216,14 @@ func file_primenumber_protocolbuffer_primenumber_proto_rawDescGZIP() []byte {
 
 var file_primenumber_protocolbuffer_primenumber_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_primenumber_protocolbuffer_primenumber_proto_goTypes = []interface{}{
-	(*PrimeNumber)(nil),                  // 0: protocolbuffer.PrimeNumber
-	(*PrimeNumberRequest)(nil),           // 1: protocolbuffer.PrimeNumberRequest
-	(*PrimeNumberManyTimesResponse)(nil), // 2: protocolbuffer.PrimeNumberManyTimesResponse
+	(*PrimeNumberDeComposition)(nil),                  // 0: protocolbuffer.PrimeNumberDeComposition
+	(*PrimeNumberDeCompositionRequest)(nil),           // 1: protocolbuffer.PrimeNumberDeCompositionRequest
+	(*PrimeNumberDeCompositionManyTimesResponse)(nil), // 2: protocolbuffer.PrimeNumberDeCompositionManyTimesResponse
 }
 var file_primenumber_protocolbuffer_primenumber_proto_depIdxs = []int32{
-	0, // 0: protocolbuffer.PrimeNumberRequest.primeNumber:type_name -> protocolbuffer.PrimeNumber
-	1, // 1: protocolbuffer.PrimeNumberService.PrimeNumberDeComposition:input_type -> protocolbuffer.PrimeNumberRequest
-	2, // 2: protocolbuffer.PrimeNumberService.PrimeNumberDeComposition:output_type -> protocolbuffer.PrimeNumberManyTimesResponse
+	0, // 0: protocolbuffer.PrimeNumberDeCompositionRequest.primeNumber:type_name -> protocolbuffer.PrimeNumberDeComposition
+	1, // 1: protocolbuffer.PrimeNumberDeCompositionService.PrimeNumberDeComposition:input_type -> protocolbuffer.PrimeNumberDeCompositionRequest
+	2, // 2: protocolbuffer.PrimeNumberDeCompositionService.PrimeNumberDeComposition:output_type -> protocolbuffer.PrimeNumberDeCompositionManyTimesResponse
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -233,7 +238,7 @@ func file_primenumber_protocolbuffer_primenumber_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_primenumber_protocolbuffer_primenumber_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PrimeNumber); i {
+			switch v := v.(*PrimeNumberDeComposition); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -245,7 +250,7 @@ func file_primenumber_protocolbuffer_primenumber_proto_init() {
 			}
 		}
 		file_primenumber_protocolbuffer_primenumber_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PrimeNumberRequest); i {
+			switch v := v.(*PrimeNumberDeCompositionRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -257,7 +262,7 @@ func file_primenumber_protocolbuffer_primenumber_proto_init() {
 			}
 		}
 		file_primenumber_protocolbuffer_primenumber_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PrimeNumberManyTimesResponse); i {
+			switch v := v.(*PrimeNumberDeCompositionManyTimesResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -297,28 +302,28 @@ var _ grpc.ClientConnInterface
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
-// PrimeNumberServiceClient is the client API for PrimeNumberService service.
+// PrimeNumberDeCompositionServiceClient is the client API for PrimeNumberDeCompositionService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type PrimeNumberServiceClient interface {
+type PrimeNumberDeCompositionServiceClient interface {
 	//Server Streaming
-	PrimeNumberDeComposition(ctx context.Context, in *PrimeNumberRequest, opts ...grpc.CallOption) (PrimeNumberService_PrimeNumberDeCompositionClient, error)
+	PrimeNumberDeComposition(ctx context.Context, in *PrimeNumberDeCompositionRequest, opts ...grpc.CallOption) (PrimeNumberDeCompositionService_PrimeNumberDeCompositionClient, error)
 }
 
-type primeNumberServiceClient struct {
+type primeNumberDeCompositionServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewPrimeNumberServiceClient(cc grpc.ClientConnInterface) PrimeNumberServiceClient {
-	return &primeNumberServiceClient{cc}
+func NewPrimeNumberDeCompositionServiceClient(cc grpc.ClientConnInterface) PrimeNumberDeCompositionServiceClient {
+	return &primeNumberDeCompositionServiceClient{cc}
 }
 
-func (c *primeNumberServiceClient) PrimeNumberDeComposition(ctx context.Context, in *PrimeNumberRequest, opts ...grpc.CallOption) (PrimeNumberService_PrimeNumberDeCompositionClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_PrimeNumberService_serviceDesc.Streams[0], "/protocolbuffer.PrimeNumberService/PrimeNumberDeComposition", opts...)
+func (c *primeNumberDeCompositionServiceClient) PrimeNumberDeComposition(ctx context.Context, in *PrimeNumberDeCompositionRequest, opts ...grpc.CallOption) (PrimeNumberDeCompositionService_PrimeNumberDeCompositionClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_PrimeNumberDeCompositionService_serviceDesc.Streams[0], "/protocolbuffer.PrimeNumberDeCompositionService/PrimeNumberDeComposition", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &primeNumberServicePrimeNumberDeCompositionClient{stream}
+	x := &primeNumberDeCompositionServicePrimeNumberDeCompositionClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -328,70 +333,70 @@ func (c *primeNumberServiceClient) PrimeNumberDeComposition(ctx context.Context,
 	return x, nil
 }
 
-type PrimeNumberService_PrimeNumberDeCompositionClient interface {
-	Recv() (*PrimeNumberManyTimesResponse, error)
+type PrimeNumberDeCompositionService_PrimeNumberDeCompositionClient interface {
+	Recv() (*PrimeNumberDeCompositionManyTimesResponse, error)
 	grpc.ClientStream
 }
 
-type primeNumberServicePrimeNumberDeCompositionClient struct {
+type primeNumberDeCompositionServicePrimeNumberDeCompositionClient struct {
 	grpc.ClientStream
 }
 
-func (x *primeNumberServicePrimeNumberDeCompositionClient) Recv() (*PrimeNumberManyTimesResponse, error) {
-	m := new(PrimeNumberManyTimesResponse)
+func (x *primeNumberDeCompositionServicePrimeNumberDeCompositionClient) Recv() (*PrimeNumberDeCompositionManyTimesResponse, error) {
+	m := new(PrimeNumberDeCompositionManyTimesResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-// PrimeNumberServiceServer is the server API for PrimeNumberService service.
-type PrimeNumberServiceServer interface {
+// PrimeNumberDeCompositionServiceServer is the server API for PrimeNumberDeCompositionService service.
+type PrimeNumberDeCompositionServiceServer interface {
 	//Server Streaming
-	PrimeNumberDeComposition(*PrimeNumberRequest, PrimeNumberService_PrimeNumberDeCompositionServer) error
+	PrimeNumberDeComposition(*PrimeNumberDeCompositionRequest, PrimeNumberDeCompositionService_PrimeNumberDeCompositionServer) error
 }
 
-// UnimplementedPrimeNumberServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedPrimeNumberServiceServer struct {
+// UnimplementedPrimeNumberDeCompositionServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedPrimeNumberDeCompositionServiceServer struct {
 }
 
-func (*UnimplementedPrimeNumberServiceServer) PrimeNumberDeComposition(*PrimeNumberRequest, PrimeNumberService_PrimeNumberDeCompositionServer) error {
+func (*UnimplementedPrimeNumberDeCompositionServiceServer) PrimeNumberDeComposition(*PrimeNumberDeCompositionRequest, PrimeNumberDeCompositionService_PrimeNumberDeCompositionServer) error {
 	return status.Errorf(codes.Unimplemented, "method PrimeNumberDeComposition not implemented")
 }
 
-func RegisterPrimeNumberServiceServer(s *grpc.Server, srv PrimeNumberServiceServer) {
-	s.RegisterService(&_PrimeNumberService_serviceDesc, srv)
+func RegisterPrimeNumberDeCompositionServiceServer(s *grpc.Server, srv PrimeNumberDeCompositionServiceServer) {
+	s.RegisterService(&_PrimeNumberDeCompositionService_serviceDesc, srv)
 }
 
-func _PrimeNumberService_PrimeNumberDeComposition_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(PrimeNumberRequest)
+func _PrimeNumberDeCompositionService_PrimeNumberDeComposition_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(PrimeNumberDeCompositionRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(PrimeNumberServiceServer).PrimeNumberDeComposition(m, &primeNumberServicePrimeNumberDeCompositionServer{stream})
+	return srv.(PrimeNumberDeCompositionServiceServer).PrimeNumberDeComposition(m, &primeNumberDeCompositionServicePrimeNumberDeCompositionServer{stream})
 }
 
-type PrimeNumberService_PrimeNumberDeCompositionServer interface {
-	Send(*PrimeNumberManyTimesResponse) error
+type PrimeNumberDeCompositionService_PrimeNumberDeCompositionServer interface {
+	Send(*PrimeNumberDeCompositionManyTimesResponse) error
 	grpc.ServerStream
 }
 
-type primeNumberServicePrimeNumberDeCompositionServer struct {
+type primeNumberDeCompositionServicePrimeNumberDeCompositionServer struct {
 	grpc.ServerStream
 }
 
-func (x *primeNumberServicePrimeNumberDeCompositionServer) Send(m *PrimeNumberManyTimesResponse) error {
+func (x *primeNumberDeCompositionServicePrimeNumberDeCompositionServer) Send(m *PrimeNumberDeCompositionManyTimesResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-var _PrimeNumberService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "protocolbuffer.PrimeNumberService",
-	HandlerType: (*PrimeNumberServiceServer)(nil),
+var _PrimeNumberDeCompositionService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "protocolbuffer.PrimeNumberDeCompositionService",
+	HandlerType: (*PrimeNumberDeCompositionServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "PrimeNumberDeComposition",
-			Handler:       _PrimeNumberService_PrimeNumberDeComposition_Handler,
+			Handler:       _PrimeNumberDeCompositionService_PrimeNumberDeComposition_Handler,
 			ServerStreams: true,
 		},
 	},

@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/grpc-go-course/server_streaming_grpc/greet/greetpb"
+	"github.com/grpc-go-course/unary_grpc/greet/greetpb"
 	"google.golang.org/grpc"
 )
 

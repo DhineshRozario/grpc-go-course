@@ -22,12 +22,12 @@ func main() {
 
 	c := protocolbuffer.NewComputeAverageServiceClient(conn)
 
-	getAverage(c)
+	doClientStreaming(c)
 }
 
-func getAverage(c protocolbuffer.ComputeAverageServiceClient) {
+func doClientStreaming(c protocolbuffer.ComputeAverageServiceClient) {
 
-	log.Println("Starting the getAverage method using the Client Streaming RPC...")
+	log.Println("Starting the doClientStreaming method using the Client Streaming RPC...")
 
 	stream, err := c.ComputeAverage(context.Background())
 

@@ -85,30 +85,14 @@ func doClientStreaming(c greetpb.GreetServiceClient) {
 		log.Fatalf("Error while calling LongGreet RPC: %v", err)
 	}
 
-	requests := []*greetpb.LongGreetRequest{
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Dhinesh",
-			},
-		},
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Radhika",
-			},
-		},
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Dewin",
-			},
-		},
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Dewiz",
-			},
-		},
-	}
+	values := []string{"Dhinesh", "Radhika", "Dewin", "Dewiz"}
 
-	for _, req := range requests {
+	for _, value := range values {
+		req := &greetpb.LongGreetRequest{
+			Greeting: &greetpb.Greeting{
+				FirstName: value,
+			},
+		}
 		log.Printf("Sending the request: %v", req)
 		stream.Send(req)
 		time.Sleep(1000 * time.Millisecond)

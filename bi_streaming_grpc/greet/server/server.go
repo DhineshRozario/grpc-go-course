@@ -24,7 +24,7 @@ func (*server) GreetEveryone(stream protocolbuffer.GreetService_GreetEveryoneSer
 			log.Fatalf("Error while reading client stream: %v\n", err)
 			return err
 		}
-		
+
 		log.Printf("Received the request :%v\n", req)
 		firstName := req.GetGreeting().GetFirstName()
 		result := "Hello " + firstName + "!"
@@ -44,7 +44,7 @@ func (*server) GreetEveryone(stream protocolbuffer.GreetService_GreetEveryoneSer
 }
 
 func main() {
-	log.Println("Hello World - am a Server!")
+	log.Println("Am a Greet Server!")
 
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
 

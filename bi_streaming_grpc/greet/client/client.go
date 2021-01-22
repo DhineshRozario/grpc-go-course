@@ -27,7 +27,7 @@ func main() {
 
 func doBiDirectionalStreaming(c protocolbuffer.GreetServiceClient) error {
 
-	log.Println("Starting to do the Unary RPC...")
+	log.Println("Starting to do the Bi-Directional Client RPC...")
 
 	//we create stream by invoking the client
 	stream, err := c.GreetEveryone(context.Background())
@@ -40,7 +40,7 @@ func doBiDirectionalStreaming(c protocolbuffer.GreetServiceClient) error {
 
 	//we send a bunch of messages to the server (using go routine)
 	go func() {
-		//function to send a bunch of messages
+		//for loop to send a bunch of messages
 		values := []string{"Dhinesh", "Radhika", "Dewin", "Dewiz"}
 		for _, value := range values {
 			req := &protocolbuffer.GreetEveryoneRequest{
@@ -57,8 +57,8 @@ func doBiDirectionalStreaming(c protocolbuffer.GreetServiceClient) error {
 
 	//we receive a bunch of messages from the server (using go routine)
 	go func() {
+		//for loop to receive a bunch of messages
 		for {
-			//function to receive a bunch of messages
 			res, err := stream.Recv()
 			if err == io.EOF {
 				break

@@ -21,7 +21,7 @@ func (*server) SquareRoot(ctx context.Context, req *protocolbuffer.SquareRootReq
 	number := req.GetNumber()
 
 	if number < 0 {
-		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("Received a negarive number: %v", number))
+		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("Received a negative number: %v", number))
 	}
 
 	return &protocolbuffer.SquareRootResponse{

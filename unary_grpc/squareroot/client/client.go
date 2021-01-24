@@ -31,18 +31,17 @@ func doCalculate(c protocolbuffer.CalculatorServiceClient) {
 
 	values := []int32{-10, 5, 36}
 
-	waitc := make(chan string)
+	waitc := make(chan bool, 1)
 
 	for _, value := range values {
-		go callSquareRoot(waitc, c, value)
+		go callSquareRoot(&waitc, c, value)
 	}
-
 	<-waitc
 
 	return
 }
 
-func callSquareRoot(waitc chan<- string, c protocolbuffer.CalculatorServiceClient, value int32) error {
+func callSquareRoot(waitc *chan bool, c protocolbuffer.CalculatorServiceClient, value int32) error {
 	req := &protocolbuffer.SquareRootRequest{
 		Number: value,
 	}
@@ -70,6 +69,6 @@ func callSquareRoot(waitc chan<- string, c protocolbuffer.CalculatorServiceClien
 
 	log.Printf("==> The response from Calculator Server -> 'SquareRoot' of %v is: %v\n", req.GetNumber(), res.GetResult())
 
-	close(waitc)
+	*waitc <- true
 	return nil
 }

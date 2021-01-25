@@ -28,20 +28,28 @@ func (*server) Greet(ctx context.Context, req *protocolbuffer.GreetRequest) (*pr
 
 func main() {
 	log.Println("Greet Server With SSL!")
+	tls := true
 
-	certFile := "./cert/server.crt"
-	keyFile := "./cert/server.key"
+	opts := []grpc.ServerOption{}
 
-	//Not working
-	// certFile := "./old_cert/server.crt"
-	// keyFile := "./old_cert/server.key"
+	if tls {
+		certFile := "./cert/server.crt"
+		keyFile := "./cert/server.key"
 
-	creds, sslErr := credentials.NewServerTLSFromFile(certFile, keyFile)
+		//Not working
+		// certFile := "./old_cert/server.crt"
+		// keyFile := "./old_cert/server.key"
 
-	if sslErr != nil {
-		log.Fatalf("Failed to loading the certificates: %v\n", sslErr)
+		creds, sslErr := credentials.NewServerTLSFromFile(certFile, keyFile)
+
+		if sslErr != nil {
+			log.Fatalf("Failed to loading the certificates: %v\n", sslErr)
+		}
+
+		opts = append(opts, grpc.Creds(creds))
 	}
-	s := grpc.NewServer(grpc.Creds(creds))
+
+	s := grpc.NewServer(opts...)
 
 	lis, err := net.Listen("tcp", "localhost:50051")
 	// // error handling omitted

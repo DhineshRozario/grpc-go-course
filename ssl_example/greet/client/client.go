@@ -29,23 +29,23 @@ func main() {
 	}
 	defer trace.Stop()
 
+	tls := true
+	opts := grpc.WithInsecure()
 	//Not working
 	// certFile := "./old_cert/ca.crt" // Certificate Authority Trust Certificate
 
-	certFile := "./cert/ca.crt" // Certificate Authority Trust Certificate
+	if tls {
+		certFile := "./cert/ca.crt" // Certificate Authority Trust Certificate
 
-	creds, sslErr := credentials.NewClientTLSFromFile(certFile, "")
+		creds, sslErr := credentials.NewClientTLSFromFile(certFile, "")
 
-	if sslErr != nil {
-		log.Fatalf("Failed to loading the CA Trust certificate: %v\n", sslErr)
-		return
+		if sslErr != nil {
+			log.Fatalf("Failed to loading the CA Trust certificate: %v\n", sslErr)
+			return
+		}
+		opts = grpc.WithTransportCredentials(creds)
 	}
-
-	opts := []grpc.DialOption{
-		grpc.WithTransportCredentials(creds),
-	}
-
-	conn, err := grpc.Dial("localhost:50051", opts...)
+	conn, err := grpc.Dial("localhost:50051", opts)
 
 	if err != nil {
 		log.Fatalf("Not able to connect with server: %v", err)

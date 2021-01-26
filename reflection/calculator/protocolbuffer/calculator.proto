@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package="calculator/protocolbuffer";
+
+message Calculator {
+    int32 firstNumber = 1;
+    int32 secondNumber = 2;
+}
+
+message CalculatorRequest {
+    Calculator calculator = 1;
+}
+
+message SquareRootRequest {
+    int32 number = 1;
+}
+
+message SquareRootResponse {
+    double result = 1;
+}
+
+message CalculatorResponse {
+    int32 result = 1;
+}
+
+message ComputeAverage {
+    int32 number = 1;
+}
+
+message ComputeAverageStreamRequest {
+    ComputeAverage computeAverage = 1;
+}
+
+message ComputeAverageResponse {
+    float average = 1;
+}
+
+message PrimeNumberDeComposition {
+    int64 number = 1;
+}
+
+message PrimeNumberDeCompositionRequest {
+    PrimeNumberDeComposition primeNumber = 1;
+}
+
+message PrimeNumberDeCompositionManyTimesResponse {
+    string result = 1;
+}
+
+
+message FindMaximumRequest {
+    int32 number = 1;
+}
+
+message FindMaximumResponse {
+    int32 maximum = 1;
+}
+
+service CalculatorService {
+
+    //Unary
+    rpc SumOfNumbers(CalculatorRequest) returns (CalculatorResponse) {}
+    
+    //Unary
+    //Error Handling
+    //This RPC will throw asn exception if the sent number is negative
+    //The error bening sent is of type INVALID ARGUMENT
+    rpc SquareRoot(SquareRootRequest) returns (SquareRootResponse) {}
+
+    //Client Streaming
+    rpc ComputeAverage(stream ComputeAverageStreamRequest) returns (ComputeAverageResponse) {};
+
+    //Server Streaming
+    rpc PrimeNumberDeComposition(PrimeNumberDeCompositionRequest) returns (stream PrimeNumberDeCompositionManyTimesResponse) {};
+
+    //Client and Server Streaming
+    rpc FindMaximum(stream FindMaximumRequest) returns (stream FindMaximumResponse) {}
+}

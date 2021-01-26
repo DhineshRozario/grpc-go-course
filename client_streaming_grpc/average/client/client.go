@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/grpc-go-course/server_streaming_grpc/average/protocolbuffer"
+	"github.com/grpc-go-course/client_streaming_grpc/average/protocolbuffer"
 	"google.golang.org/grpc"
 )
 

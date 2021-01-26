@@ -18,6 +18,6 @@ message ComputeAverageResponse {
 
 service ComputeAverageService {
     
-    //Server Streaming
+    //Client Streaming
     rpc ComputeAverage(stream ComputeAverageStreamRequest) returns (ComputeAverageResponse) {};
 }

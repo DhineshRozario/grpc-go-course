@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package squareroot;
+
+option go_package="squareroot/protocolbuffer";
+
+message SquareRootRequest {
+    int32 number = 1;
+}
+
+message SquareRootResponse {
+    double result = 1;
+}
+
+service CalculatorService {
+    //Unary
+    //Error Handling
+    //This RPC will throw asn exception if the sent number is negative
+    //The error bening sent is of type INVALID ARGUMENT
+    rpc SquareRoot(SquareRootRequest) returns (SquareRootResponse) {}
+}

@@ -11,6 +11,24 @@ message Blog {
     string content = 4;
 }
 
-service BlogService {
+message CreateBlogRequest {
+    Blog blog = 1;
+}
 
+message CreateBlogResponse {
+    Blog blog = 1; // will have the generated blog id in response
+}
+
+message ReadBlogRequest {
+    string blog_id = 1;
+}
+
+message ReadBlogResponse {
+    Blog blog = 1; // will have a blog id
+}
+
+
+service BlogService {
+    rpc CreateBlog (CreateBlogRequest) returns (CreateBlogResponse);
+    rpc ReadBlog(ReadBlogRequest) returns (ReadBlogResponse); // Need to return NOT FOUND, if not exists
 }

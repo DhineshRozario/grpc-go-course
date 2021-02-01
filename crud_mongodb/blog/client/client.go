@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"io"
 	"log"
 
 	"github.com/grpc-go-course/crud_mongodb/blog/protocolbuffer"
@@ -104,4 +105,23 @@ func main() {
 		log.Fatalf("Not able to delete the blog in server: %v", deleteErr)
 	}
 	log.Printf("Blog Deleted from the server: %v", deleteRes)
+
+	//List All Blogs
+	responseStream, err := c.ListBlog(context.Background(), &protocolbuffer.ListBlogRequest{})
+	if err != nil {
+		log.Fatalf("Error while calling ListBlog RPC: %v", err)
+	}
+
+	log.Println("Response from Server for List Blog")
+	for {
+		msg, err := responseStream.Recv()
+
+		if err == io.EOF {
+			log.Println("Reached end of response...")
+			break
+		} else if err != nil {
+			log.Fatalf("Error while receiving the response from Server: %v", err)
+		}
+		log.Printf("%v", msg.GetBlog())
+	}
 }

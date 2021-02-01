@@ -123,8 +123,8 @@ func (*server) UpdateBlog(ctx context.Context, req *protocolbuffer.UpdateBlogReq
 	result := collection.FindOne(ctx, filter)
 
 	if decodeError := result.Decode(&data); decodeError != nil {
-		log.Fatalf("Cannot find the blog with the specified ID: %v, and error: %v", oid, decodeError)
-		return nil, status.Errorf(codes.NotFound, fmt.Sprintf("Cannot find the blog with the specified ID: %v", decodeError))
+		log.Fatalf("Error while decoding the data from MONGODB: %v", decodeError)
+		return nil, status.Errorf(codes.NotFound, fmt.Sprintf("Error while decoding the data from MONGODB: %v", decodeError))
 	}
 
 	//Updating the 'data' object with the existing values
@@ -174,6 +174,42 @@ func (s *server) DeleteBlog(ctx context.Context, req *protocolbuffer.DeleteBlogR
 		BlogId: blogID,
 	}, nil
 
+}
+
+func (s *server) ListBlog(req *protocolbuffer.ListBlogRequest, stream protocolbuffer.BlogService_ListBlogServer) error {
+
+	log.Println("Received List Blog request")
+
+	//Find returns the Cursor
+	cursor, err := collection.Find(context.Background(), bson.D{{}})
+	if err != nil {
+		log.Fatalf("Unable to list all the blogs in MongoDB: %v", err)
+		return status.Errorf(codes.Internal, fmt.Sprintf("Unable to list all the blogs in MongoDB: %v", err))
+	}
+
+	defer cursor.Close(context.Background())
+
+	for cursor.Next(context.Background()) {
+		data := &blogItem{}
+
+		if decodeError := cursor.Decode(&data); decodeError != nil {
+			log.Fatalf("Error while decoding the data from MONGODB: %v", decodeError)
+			return status.Errorf(codes.NotFound, fmt.Sprintf("Error while decoding the data from MONGODB: %v", decodeError))
+		}
+
+		response := &protocolbuffer.ListBlogResponse{
+			Blog: dataToBlogProtocolBuffer(data),
+		}
+
+		log.Printf("Sending the Blog: %v", response)
+		stream.SendMsg(response)
+	}
+	if err := cursor.Err(); err != nil {
+		log.Fatalf("Unknown internal error in MONGODB: %v", err)
+		return status.Errorf(codes.NotFound, fmt.Sprintf("Unknown internal error in MONGODB: %v", err))
+	}
+	log.Printf("Completed Listing all the Blogs from MONGODB")
+	return nil
 }
 
 func main() {

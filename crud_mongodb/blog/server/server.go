@@ -16,6 +16,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 )
 
@@ -243,6 +244,11 @@ func main() {
 		log.Fatalf("failed to listen: %v\n", err)
 	}
 	protocolbuffer.RegisterBlogServiceServer(s, &server{})
+
+	//EVANS - to list all the APIs and details
+	//Regiter reflection service on gRPC server
+	reflection.Register(s)
+
 	//shutdown hook - for greacefully shutdown the server
 	go func() {
 		log.Println("Starting the Listning the request!")

@@ -37,7 +37,7 @@ func (*server) ReadBlog(ctx context.Context, req *protocolbuffer.ReadBlogRequest
 
 	oid, err := primitive.ObjectIDFromHex(blogID)
 	if err != nil {
-		log.Printf("Cannot parse the given id from Request: %v and the error: %v", blogID, err)
+		log.Fatalf("Cannot parse the given id from Request: %v and the error: %v", blogID, err)
 		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("Cannot parse the given id from Request: %v", blogID))
 	}
 
@@ -48,17 +48,12 @@ func (*server) ReadBlog(ctx context.Context, req *protocolbuffer.ReadBlogRequest
 	result := collection.FindOne(ctx, filter)
 
 	if decodeError := result.Decode(&data); decodeError != nil {
-		log.Printf("Cannot find the blog with the specified ID: %v, and error: %v", oid, decodeError)
+		log.Fatalf("Cannot find the blog with the specified ID: %v, and error: %v", oid, decodeError)
 		return nil, status.Errorf(codes.NotFound, fmt.Sprintf("Cannot find the blog with the specified ID: %v", decodeError))
 	}
 
 	responseBlog := &protocolbuffer.ReadBlogResponse{
-		Blog: &protocolbuffer.Blog{
-			Id:       data.ID.Hex(),
-			AuthorId: data.AuthorID,
-			Title:    data.Title,
-			Content:  data.Content,
-		},
+		Blog: dataToBlogProtocolBuffer(data),
 	}
 
 	return responseBlog, nil
@@ -80,24 +75,105 @@ func (*server) CreateBlog(ctx context.Context, req *protocolbuffer.CreateBlogReq
 	//Inserting into DB with the given data
 	res, err := collection.InsertOne(context.Background(), data)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, fmt.Sprintf("Unable to insert the data into DB: Internal error: %v", err))
+		return nil, status.Errorf(codes.Internal, fmt.Sprintf("Unable to insert the data into DB: %v", err))
 	}
 
 	oid, ok := res.InsertedID.(primitive.ObjectID)
 	if !ok {
 		return nil, status.Errorf(codes.Internal, fmt.Sprintf("Cannot convert to OID from Response"))
 	}
+
 	//Returning the response with updated id
 	responseBlog := protocolbuffer.CreateBlogResponse{
 		Blog: &protocolbuffer.Blog{
 			Id:       oid.Hex(),
-			AuthorId: blog.GetAuthorId(),
-			Title:    blog.GetTitle(),
-			Content:  blog.GetContent(),
+			AuthorId: data.AuthorID,
+			Title:    data.Title,
+			Content:  data.Content,
 		},
 	}
 	log.Printf("CreateBlog: Successfully inserted into MonogDB, sending the response: %v", responseBlog.GetBlog())
 	return &responseBlog, nil
+}
+
+func dataToBlogProtocolBuffer(data *blogItem) *protocolbuffer.Blog {
+	return &protocolbuffer.Blog{
+		Id:       data.ID.Hex(),
+		AuthorId: data.AuthorID,
+		Title:    data.Title,
+		Content:  data.Content,
+	}
+}
+
+func (*server) UpdateBlog(ctx context.Context, req *protocolbuffer.UpdateBlogRequest) (*protocolbuffer.UpdateBlogResponse, error) {
+	blog := req.GetBlog()
+
+	log.Printf("UpdateBlog: Received a request: %v", blog)
+
+	oid, err := primitive.ObjectIDFromHex(blog.GetId())
+	if err != nil {
+		log.Fatalf("Cannot parse the given id from Request: %v and the error: %v", blog.GetId(), err)
+		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("Cannot parse the given id from Request: %v", blog.GetId()))
+	}
+
+	//Create an empty data
+	data := &blogItem{}
+
+	filter := bson.M{"_id": oid}
+	result := collection.FindOne(ctx, filter)
+
+	if decodeError := result.Decode(&data); decodeError != nil {
+		log.Fatalf("Cannot find the blog with the specified ID: %v, and error: %v", oid, decodeError)
+		return nil, status.Errorf(codes.NotFound, fmt.Sprintf("Cannot find the blog with the specified ID: %v", decodeError))
+	}
+
+	//Updating the 'data' object with the existing values
+	data.AuthorID = blog.GetAuthorId()
+	data.Content = blog.GetContent()
+	data.Title = blog.GetTitle()
+
+	//Updating the MongoDB with the modified 'data' object
+	_, updateErr := collection.ReplaceOne(context.Background(), filter, data)
+	if updateErr != nil {
+		return nil, status.Errorf(codes.Internal, fmt.Sprintf("Unable to update the blog into DB: %v", updateErr))
+	}
+
+	return &protocolbuffer.UpdateBlogResponse{
+		Blog: dataToBlogProtocolBuffer(data),
+	}, nil
+}
+
+func (s *server) DeleteBlog(ctx context.Context, req *protocolbuffer.DeleteBlogRequest) (*protocolbuffer.DeleteBlogResponse, error) {
+	blogID := req.BlogId
+
+	log.Printf("UpdateBlog: Received a request: %v", blogID)
+
+	oid, err := primitive.ObjectIDFromHex(blogID)
+	if err != nil {
+		log.Fatalf("Cannot parse the given id from Request: %v and the error: %v", blogID, err)
+		return nil, status.Errorf(codes.InvalidArgument, fmt.Sprintf("Cannot parse the given id from Request: %v", blogID))
+	}
+
+	filter := bson.M{"_id": oid}
+
+	//Deleting the blog
+	deleteResult, deleteErr := collection.DeleteOne(context.Background(), filter)
+	if deleteErr != nil {
+		log.Fatalf("Unable to delete the blog:%v in MongoDB: %v", blogID, err)
+		return nil, status.Errorf(codes.Internal, fmt.Sprintf("Unable to delete the blog:%v in MongoDB: %v", blogID, err))
+	}
+
+	if deleteResult.DeletedCount == 0 {
+		log.Fatalf("Unable to find the blog:%v in MongoDB: %v", blogID, err)
+		return nil, status.Errorf(codes.Internal, fmt.Sprintf("Unable to find the blog:%v in MongoDB: %v", blogID, err))
+	}
+
+	log.Printf("Deleted the Blog: %v", blogID)
+
+	return &protocolbuffer.DeleteBlogResponse{
+		BlogId: blogID,
+	}, nil
+
 }
 
 func main() {

@@ -22,7 +22,7 @@ func main() {
 
 	c := protocolbuffer.NewBlogServiceClient(conn)
 
-	//Blog 1
+	//Create the new Blog
 	log.Println("Creating the blog 1")
 	blog := &protocolbuffer.Blog{
 		AuthorId: "Dewiz Rozario",
@@ -43,8 +43,10 @@ func main() {
 	// Read the Created Blog
 	log.Println("Reading the blog")
 
+	blogID := blogResponse.Blog.Id
+
 	_, err2 := c.ReadBlog(context.Background(), &protocolbuffer.ReadBlogRequest{
-		BlogId: "some_random_id",
+		BlogId: blogID,
 	})
 	if err2 != nil {
 		log.Printf("Error happened while reading: %v", err2)
@@ -58,7 +60,7 @@ func main() {
 	}
 	log.Printf("Id found: %v", readBlogResponse.GetBlog())
 
-	// //Blog 2
+	// //Creating Blog 2
 	// log.Println("Creating the blog 2")
 	// blog = &protocolbuffer.Blog{
 	// 	AuthorId: "Dewin Rozario",
@@ -75,4 +77,31 @@ func main() {
 	// }
 
 	// log.Printf("The blog has been created: %v", blogResponse)
+
+	//Update the existing blog
+	newBlog := &protocolbuffer.Blog{
+		Id:       blogID,
+		AuthorId: "Dhinesh Rozario Dhinesh",
+		Title:    "My Blog using Go-Proto with MongoDB - updated content",
+		Content:  "Exploring the protocol buffer using go language, using CRUD with MONGO DB",
+	}
+
+	updateRes, updateErr := c.UpdateBlog(context.Background(), &protocolbuffer.UpdateBlogRequest{
+		Blog: newBlog,
+	})
+
+	if updateErr != nil {
+		log.Fatalf("Not able to update the blog in server: %v", updateErr)
+	}
+	log.Printf("Blog Updated in server: %v", updateRes)
+
+	//Delete the created blog
+	deleteRes, deleteErr := c.DeleteBlog(context.Background(), &protocolbuffer.DeleteBlogRequest{
+		BlogId: blogID,
+	})
+
+	if deleteErr != nil {
+		log.Fatalf("Not able to delete the blog in server: %v", deleteErr)
+	}
+	log.Printf("Blog Deleted from the server: %v", deleteRes)
 }
